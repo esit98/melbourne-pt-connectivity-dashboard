@@ -16,3 +16,18 @@ Baseline on the research checkout: 15/15 Node tests passed and the Vite build pa
 | Methods & Data | Working | Research question, scenario, metrics, limitations, public/local data flow and source attribution display. External source links are present. |
 
 Shared state: route selection survives compatible navigation; metric selection persists between Matrix and Map. Search, keyboard result navigation, active nav state, menu close and eight mobile sections were exercised. No missing control or data-blocked section was found in the saved-data mode. External map tiles still require internet; tile availability is independent of saved route geometries.
+
+## Mobile Map reassessment, 14 October 2026
+
+The previous 390px layout put the full filter card before a fixed 430px map, placed the selected-route card over the map using a fixed top offset and displayed the complete legend below it. The revised mobile structure is compact header and search → essential selectors → 60dvh map → selected-route panel when applicable → collapsible filters → compact legend → summary and route-list action. DOM grid ordering places the map before optional filters without duplicating the OpenLayers map. The existing legend moves between its desktop/full-screen map stage and a mobile slot after the filters. The desktop sidebar, map/filters columns, legend, cards and other pages retain their approved arrangement.
+
+| Mobile Map control | Status | Verified behaviour |
+|---|---|---|
+| Metric and analysis type | Working | Five metrics and three analysis scopes retain their original meaning and counts. |
+| Filters | Working | Collapsed initially; active threshold/origin/match count shown; values survive collapse; apply, reset, advanced filters and centre visibility work. |
+| Map and route selection | Working | CARTO tiles, saved lines, markers, zoom, fit, pan, touch selection and a scrollable 34-journey overlap chooser were exercised. |
+| Selected route | Working | Compact panel shows journey, travel time and transfer count; Details, Open route and Clear work; selection persists through Route Explorer navigation. |
+| Legend and full-screen map | Working | Compact metric swatches expand to the unchanged classification; full-screen overlay keeps the same map target and state, resizes OpenLayers, offers Fit and close, and supports Escape. |
+| Accessibility and responsive layout | Working | Open/closed states use `aria-expanded`; expanded map uses dialog semantics and focus trapping; mobile map controls target 44px where practical. No whole-page horizontal overflow was found across all eight sections at 320px. |
+
+The dedicated `scripts/verify_mobile_map.mjs` checks 320, 375, 390, 430, 768, 1280 and 1440px. The existing full and public browser suites also pass. This reassessment concerns layout and interaction only; the frozen study values, route geometries and classification methods are unchanged.

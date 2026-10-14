@@ -10,7 +10,7 @@
 | Export reproducibility | Pass | `export_public_data.py --check` matched both public files byte-for-byte. |
 | Full browser control pass | Pass | `verify_full_browser.mjs`: eight sections; search/keyboard; route choice and reversal; 90-cell matrix, metric, toggle and CSV; map hover/click, layers, filters, empty state; centre selection; chart tabs/point clicks; compare table; licensing and disclaimer content; mobile layouts; no page errors. |
 | Public browser pass | Pass | `verify_public_browser.mjs`: 1440×900 and 390×844; direct `#compare` load and refresh; static source; no console errors, broken same-origin assets, page errors or GeoServer/backend requests. |
-| Live GitHub Pages | Passed for preceding OSM release | The earlier release passed both browser scripts; the CARTO Light update requires a separate live run after its deployment. |
+| Live GitHub Pages | Passed for CARTO Light release | Actions run 38551322211 and the two live browser suites verified the preceding CARTO Light deployment. The mobile UI revision is reported separately below. |
 
 Selected saved-value checks: 90 Outer-to-Outer and ten Outer-to-CBD routes, ten outer centres plus one CBD benchmark, 533 legs, 100 non-empty route geometries, mean Outer-to-Outer travel time 106.700011 minutes and mean benchmark travel time 68.855 minutes. The browser renders rounded values (106.7 and 68.9). Melton → Ringwood has seven saved legs; reverse Ringwood → Melton is a separate itinerary. A benchmark route has no reverse control.
 
@@ -21,6 +21,7 @@ Run after `npm run build:public` and a static-mode `npm run preview`:
 ```sh
 node scripts/verify_public_browser.mjs
 node scripts/verify_full_browser.mjs
+node scripts/verify_mobile_map.mjs
 ```
 
 These browser scripts need Playwright and a Chromium browser installed locally. Set `PLAYWRIGHT_PACKAGE` and `CHROME_PATH` if they are outside normal module/browser discovery. Set `PUBLIC_BASE_URL` or `WEB_MAP_URL` to test the deployed URL. Screenshots default to a temporary directory.
@@ -32,3 +33,9 @@ A fresh `npm ci` reported zero vulnerabilities. All 15 frontend tests, the 100-g
 ## CARTO Light live check, 14 October 2026
 
 After Actions run 38551322211 deployed the update, both browser suites passed against the public Pages URL. The public pass received 47 successful CARTO tiles with no failed CARTO or OSM Standard requests, no console/page errors, broken assets or backend requests. Desktop and mobile route/map interactions and direct links passed. Live desktop/mobile map screenshots are retained outside this repository in `Publication/carto-qa-screenshots/live-public/`. See [public website verification](PUBLIC_WEBSITE_VERIFICATION.md) for the release commit, run and hash results.
+
+## Mobile Map revision: local production check, 14 October 2026
+
+The map moved above optional filters at phone widths; the filter and legend panels start collapsed, the selected route uses a compact panel below the map, and full-screen mode reuses the OpenLayers map target. The dedicated `verify_mobile_map.mjs` passed at 320, 375, 390, 430, 768, 1280 and 1440px. It exercised all five metrics, three analysis scopes, filter counts and persistence, advanced origin/match controls, centre visibility, route details, overlapping touch selection (34 choices), Route Explorer persistence, legend expansion, full-screen zoom/fit/close/Escape, pan and all eight pages at 320px without whole-page horizontal overflow. It recorded 14 successful CARTO tile responses and no page/console errors, broken assets or local backend requests.
+
+The revised `verify_public_browser.mjs` also passed all eight sections at 1440×900 and 390×844, including map/filter/legend ordering, with 41 successful CARTO tiles and no failed tiles, OSM Standard tiles, console/page errors or backend requests. The unchanged `verify_full_browser.mjs` passed its detailed eight-section interaction suite. `npm test` passed 15/15, `npm run verify:geometry` confirmed all 100 stored geometries and the unchanged geometry SHA-256, notices for 23 packages passed, and the public Vite build and artifact check passed. Before/after, selected, expanded-filter, full-screen and desktop screenshots were visually reviewed in `Publication/carto-qa-screenshots/mobile-ui-before/` and `Publication/carto-qa-screenshots/mobile-ui-after/`, outside this repository. Live verification follows deployment.

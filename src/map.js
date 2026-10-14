@@ -103,8 +103,10 @@ export function updateMap(next) {
 export function mountMap(slot) {
   const shell = document.getElementById('map-shell');
   slot.append(shell); shell.hidden = false;
-  requestAnimationFrame(() => map.updateSize());
+  resizeMap();
 }
+export function resizeMap() { requestAnimationFrame(() => map.updateSize()); }
+new ResizeObserver(resizeMap).observe(document.getElementById('map-shell'));
 export function fitStudy() {
   const extent = createEmpty();
   if (routeFeatures.length) extend(extent, routeSource.getExtent());

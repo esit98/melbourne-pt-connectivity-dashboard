@@ -23,7 +23,15 @@ node scripts/check_publication.mjs
 
 Preview the public build with `VITE_PUBLICATION_MODE=static npm run preview` on Unix, or set that environment variable before `npm run preview` in PowerShell. The production URL path is `/melbourne-pt-connectivity-dashboard/`. A local research build uses `npm run build` and can compare the saved snapshot with GeoServer WFS.
 
+With the preview running, run `node scripts/verify_mobile_map.mjs` for the responsive interaction check.
+
 The public artifact contains `public/data/study.json`, `public/data/manifest.json`, a separately ODbL-labelled copy of the [100 route geometries](public/data/route_geometries.geojson) and [component notices](public/data/README.md). The site never requires the local database, GeoServer, Python or OTP at runtime. Its default basemap is CARTO Positron (Light), with visible © OpenStreetMap contributors and © CARTO attribution. An internet connection is needed for tiles. Local development retains an OpenStreetMap Standard fallback when no CARTO key is configured. Saved route lines and centres remain in the unchanged static snapshot.
+
+## Mobile Network Explorer
+
+At widths up to 640px, Map places the Metric and Analysis type selectors immediately above a map sized to about 60% of the dynamic viewport height (limited to 340–720px). The selected journey appears in a compact panel below the map. Filters and the metric legend are collapsed initially and keep their state when opened or closed; the Filters header shows the applied-filter count. Expand map opens a viewport overlay around the same OpenLayers instance, with Fit network, route actions, map attribution, an obvious close button and Escape support. Route and metric selection persist across compatible pages. At wider widths the approved side-by-side desktop layout remains in use.
+
+The production browser scripts are `scripts/verify_public_browser.mjs`, `scripts/verify_full_browser.mjs` and `scripts/verify_mobile_map.mjs`. The mobile script checks 320, 375, 390, 430, 768, 1280 and 1440px widths, touch route/overlap selection, keyboard exit, filters, legend, full-screen resizing and all eight pages. It writes screenshots outside the repository via `QA_OUTPUT_DIR` (or the system temporary directory by default). Set `PUBLIC_BASE_URL` and, if needed, `CHROME_PATH` for local preview or the deployed site.
 
 ## Update the frozen study snapshot
 

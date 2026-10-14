@@ -105,6 +105,14 @@ try {
   await page.screenshot({ path: join(shots, 'mobile-methods.png') });
   await page.locator('#menu-toggle').click();
   await nav('map');
+  const mobileMap = await page.locator('.map-panel').boundingBox();
+  const mobileFilters = await page.locator('.map-filters').boundingBox();
+  assert.ok(mobileMap.y < mobileFilters.y, 'mobile map precedes optional filters');
+  assert.ok(mobileFilters.y < (await page.locator('.map-legend').boundingBox()).y, 'mobile filters precede compact legend');
+  assert.ok(mobileMap.height >= 340 && mobileMap.height <= 720, 'mobile map uses viewport-responsive height');
+  assert.equal(await page.locator('#toggle-map-filters').getAttribute('aria-expanded'), 'false');
+  assert.equal(await page.locator('#toggle-map-legend').getAttribute('aria-expanded'), 'false');
+  assert.equal(await page.locator('#expand-map').isVisible(), true);
   await page.waitForTimeout(1200);
   assert.match(await page.locator('#map .ol-attribution').innerText(), /OpenStreetMap[\s\S]*CARTO/);
   await page.screenshot({ path: join(shots, 'mobile-map.png'), fullPage: true });
