@@ -31,3 +31,5 @@ The previous 390px layout put the full filter card before a fixed 430px map, pla
 | Accessibility and responsive layout | Working | Open/closed states use `aria-expanded`; expanded map uses dialog semantics and focus trapping; mobile map controls target 44px where practical. No whole-page horizontal overflow was found across all eight sections at 320px. |
 
 The dedicated `scripts/verify_mobile_map.mjs` checks 320, 375, 390, 430, 768, 1280 and 1440px. The existing full and public browser suites also pass. This reassessment concerns layout and interaction only; the frozen study values, route geometries and classification methods are unchanged.
+
+The same three suites passed against the live GitHub Pages release from commit `26cf5024e33bad6e8af34c4e8721b22bffdd2f3f` after [Actions run 38556746628](https://github.com/esit98/melbourne-pt-connectivity-dashboard/actions/runs/38556746628) completed. See [public website verification](PUBLIC_WEBSITE_VERIFICATION.md).

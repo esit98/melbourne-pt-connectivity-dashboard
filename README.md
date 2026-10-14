@@ -6,6 +6,8 @@ Eight-section research and planning dashboard for ten selected outer Melbourne a
 
 The CARTO Light update is verified locally and on the live Pages site. A separate browser key is restricted to `esit98.github.io` and stored as the repository Actions secret; the older local key remains in ignored local configuration.
 
+The mobile Network Explorer update is also deployed and verified. See the [mobile UI test report](docs/UI_FUNCTIONALITY_TEST_REPORT.md) and [live verification record](docs/PUBLIC_WEBSITE_VERIFICATION.md).
+
 ## Run and verify
 
 Requires Node.js 24 and npm. From this directory:
