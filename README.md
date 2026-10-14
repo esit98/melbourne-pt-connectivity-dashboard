@@ -2,7 +2,7 @@
 
 Eight-section research and planning dashboard for ten selected outer Melbourne activity centres and one separate CBD benchmark. This is a saved scheduled scenario for **13 October 2026, 08:00 Australia/Melbourne**, not a live journey planner.
 
-**Release status:** source-linked licence assessment and compliance package prepared; public deployment and live verification are pending. The [publication readiness record](docs/PUBLICATION_READINESS.md) gives the remaining checks and links to the [licensing review](docs/LICENSING_REVIEW.md), [data licence register](docs/DATA_LICENCES.md) and [public attribution plan](docs/PUBLIC_ATTRIBUTION.md).
+**Live dashboard:** [esit98.github.io/melbourne-pt-connectivity-dashboard](https://esit98.github.io/melbourne-pt-connectivity-dashboard/). The [public verification record](docs/PUBLIC_WEBSITE_VERIFICATION.md) documents the deployed browser checks. The [publication readiness record](docs/PUBLICATION_READINESS.md), [licensing review](docs/LICENSING_REVIEW.md), [data licence register](docs/DATA_LICENCES.md) and [public attribution plan](docs/PUBLIC_ATTRIBUTION.md) describe the release basis and obligations.
 
 ## Run and verify
 

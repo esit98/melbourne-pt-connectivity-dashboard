@@ -1,6 +1,6 @@
 # Public publication readiness
 
-**Decision on 14 October 2026: LICENSING CLEARED ON DOCUMENTED TERMS; DEPLOYMENT CHECKS PENDING.** The proposed GitHub repository has not yet been created and the Pages URL has not yet been verified. The source-linked Plan Melbourne CC BY assessment and conservative ODbL compliance method are in [LICENSING_REVIEW.md](LICENSING_REVIEW.md). This is an evidence-based release decision, not a claim of formal legal certainty.
+**Decision on 14 October 2026: PUBLISHED AND VERIFIED ON DOCUMENTED LICENCE TERMS.** The [public repository](https://github.com/esit98/melbourne-pt-connectivity-dashboard) and [live Pages site](https://esit98.github.io/melbourne-pt-connectivity-dashboard/) passed the deployment and browser checks recorded in [PUBLIC_WEBSITE_VERIFICATION.md](PUBLIC_WEBSITE_VERIFICATION.md). The source-linked Plan Melbourne CC BY assessment and conservative ODbL compliance method are in [LICENSING_REVIEW.md](LICENSING_REVIEW.md). This is an evidence-based release decision, not a claim of formal legal certainty.
 
 | Gate | Status | Evidence or action |
 |---|---|---|
@@ -8,11 +8,11 @@
 | Plan Melbourne points | Cleared on source-linked CC BY 4.0 assessment | Archived 133-feature file is byte-identical to the current official all-centres layer; the Plan Melbourne spatial-download page links DTP's CC BY 4.0 copyright terms and the 2017 source list identifies government Plan Melbourne as provider. The selected eleven points remain unchanged. See the documented scope and inference in `LICENSING_REVIEW.md`. |
 | OSM route geometry | Cleared with conservative ODbL safeguards | Treat the machine-readable collection as a Derivative Database for compliance. `public/data/route_geometries.geojson` offers all 100 saved geometries with ODbL notice; `public/data/README.md` provides component attribution and alteration method. OSMF has not formally classified this specific export. |
 | Transport Victoria GTFS | Verified dataset licence | Official GTFS Schedule page states CC BY 4.0. Preserve provider, source/licence links and transformation notice. |
-| OSM tiles | Prepared; verify live | OpenLayers uses the policy HTTPS endpoint and visible attribution. Confirm Referer, caching and acceptable tile request behavior on the actual Pages site. |
+| OSM tiles | Passed live display check | The public Chrome page rendered OSM Standard tiles and a visible on-map © OpenStreetMap contributors credit. The app code uses the policy HTTPS endpoint and has no prefetch logic. Browser-level Referer and cache policy remain governed by standard browser behavior. |
 | Software notices | Passed locally | All 63 lockfile package entries name a licence. OpenLayers' BSD-2-Clause notice and generated full notices for all 23 production dependencies are bundled under `public/licenses/`; `npm run verify:notices` passed after a fresh install. The original project's own software licence remains separate. |
 | Privacy and repository separation | Passed in preceding local audit | Separate candidate has no remote; original research repository remains private. Review exact public file allowlist again before push. |
 | Local checks | Passed | On 14 October 2026, a fresh `npm ci` completed (zero reported vulnerabilities), `npm test` passed 15/15, the saved-data and geometry exporters passed `--check`, all 23 production dependency notices passed verification, `npm run build:public` passed, and `node scripts/check_publication.mjs` passed. Both production browser scripts then passed at desktop and mobile sizes, including the new licence and disclaimer content, with no console errors, broken same-origin assets or local backend requests. |
-| CI build and live website | Pending | Create the public repository, run GitHub Actions and verify the actual Pages URL before reporting success. |
+| CI build and live website | Passed | [Actions run 38545950279, attempt 2](https://github.com/esit98/melbourne-pt-connectivity-dashboard/actions/runs/38545950279) passed build and deploy. The live URL returned HTTP 200; both browser scripts passed against it. Published `study.json`, `manifest.json` and `route_geometries.geojson` exactly match local SHA-256 hashes. The original research repository was rechecked as private. |
 
 ## Release sequence
 

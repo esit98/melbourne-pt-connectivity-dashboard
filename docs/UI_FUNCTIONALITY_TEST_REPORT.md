@@ -14,7 +14,7 @@
 
 Selected saved-value checks: 90 Outer-to-Outer and ten Outer-to-CBD routes, ten outer centres plus one CBD benchmark, 533 legs, 100 non-empty route geometries, mean Outer-to-Outer travel time 106.700011 minutes and mean benchmark travel time 68.855 minutes. The browser renders rounded values (106.7 and 68.9). Melton → Ringwood has seven saved legs; reverse Ringwood → Melton is a separate itinerary. A benchmark route has no reverse control.
 
-Playwright screenshots from the current production pass are in the local temporary folder `melbourne-public-full-qa`; they are deliberately excluded from the publication repository. The automated checks do not establish correctness of live service schedules beyond the frozen source files, or successful Pages hosting.
+The same two browser scripts also passed against the [deployed Pages URL](https://esit98.github.io/melbourne-pt-connectivity-dashboard/) on 14 October 2026. Playwright screenshots from the production passes are in the local temporary folder `melbourne-public-full-qa`; they are deliberately excluded from the publication repository. These checks establish the fixed saved scenario and deployed interaction, not the accuracy of later live service schedules.
 
 Run after `npm run build:public` and a static-mode `npm run preview`:
 
