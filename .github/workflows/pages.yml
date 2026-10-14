@@ -22,7 +22,11 @@ jobs:
       - run: npm run verify:geometry
       - run: npm run verify:notices
       - run: npm run build:public
+        env:
+          VITE_CARTO_BASEMAP_KEY: ${{ secrets.CARTO_BASEMAP_KEY }}
       - run: node scripts/check_publication.mjs
+        env:
+          VITE_CARTO_BASEMAP_KEY: ${{ secrets.CARTO_BASEMAP_KEY }}
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
         with:

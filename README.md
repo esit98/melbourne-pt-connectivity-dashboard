@@ -4,9 +4,13 @@ Eight-section research and planning dashboard for ten selected outer Melbourne a
 
 **Live dashboard:** [esit98.github.io/melbourne-pt-connectivity-dashboard](https://esit98.github.io/melbourne-pt-connectivity-dashboard/). The [public verification record](docs/PUBLIC_WEBSITE_VERIFICATION.md) documents the deployed browser checks. The [publication readiness record](docs/PUBLICATION_READINESS.md), [licensing review](docs/LICENSING_REVIEW.md), [data licence register](docs/DATA_LICENCES.md) and [public attribution plan](docs/PUBLIC_ATTRIBUTION.md) describe the release basis and obligations.
 
+The CARTO Light update is verified in the local production release candidate. A separate browser key is restricted to `esit98.github.io` and stored as the repository Actions secret. The linked live site remains on the preceding release until the new Pages deployment is verified.
+
 ## Run and verify
 
 Requires Node.js 24 and npm. From this directory:
+
+Set `VITE_CARTO_BASEMAP_KEY` in an ignored `.env.local` for local development and public-build checks. GitHub Actions reads the browser key from its `CARTO_BASEMAP_KEY` repository secret. The key is deliberately present in browser tile requests, so use a CARTO Basemaps key intended for this site and restrict its website/referrer use to `esit98.github.io`; use a separate localhost-capable key if that restriction prevents local previews. The public build fails without a valid key.
 
 ```sh
 npm ci
@@ -19,7 +23,7 @@ node scripts/check_publication.mjs
 
 Preview the public build with `VITE_PUBLICATION_MODE=static npm run preview` on Unix, or set that environment variable before `npm run preview` in PowerShell. The production URL path is `/melbourne-pt-connectivity-dashboard/`. A local research build uses `npm run build` and can compare the saved snapshot with GeoServer WFS.
 
-The public artifact contains `public/data/study.json`, `public/data/manifest.json`, a separately ODbL-labelled copy of the [100 route geometries](public/data/route_geometries.geojson) and [component notices](public/data/README.md). The site never requires the local database, GeoServer, Python or OTP at runtime. Map tiles use OpenStreetMap with visible attribution; an internet connection is needed for the basemap. Saved route lines and centres remain in the unchanged static snapshot.
+The public artifact contains `public/data/study.json`, `public/data/manifest.json`, a separately ODbL-labelled copy of the [100 route geometries](public/data/route_geometries.geojson) and [component notices](public/data/README.md). The site never requires the local database, GeoServer, Python or OTP at runtime. Its default basemap is CARTO Positron (Light), with visible © OpenStreetMap contributors and © CARTO attribution. An internet connection is needed for tiles. Local development retains an OpenStreetMap Standard fallback when no CARTO key is configured. Saved route lines and centres remain in the unchanged static snapshot.
 
 ## Update the frozen study snapshot
 

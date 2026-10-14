@@ -17,3 +17,7 @@ Local production and live website evidence:
 | Public URL | HTTPS GET returned 200; all eight sections loaded and the 100-route overview appeared in a fresh Chrome tab. |
 
 The first workflow attempt failed at `configure-pages` because the new repository's Pages setting had not yet been enabled. Pages was configured for GitHub Actions, then the same workflow reran successfully. The live scripts covered matrix-to-route selection, reverse direction, map filters and geometry, CBD comparison, desktop/mobile navigation and direct links. The public browser pass recorded no backend requests or browser errors. The site remains a fixed, modelled research scenario and requires internet only for its basemap tiles.
+
+## CARTO Light release candidate
+
+The preceding table documents the earlier OSM Standard release. On 14 October 2026, the new local production build passed both browser suites with CARTO Positron (Light), 41 successful tile responses, no failed CARTO or OSM Standard tile requests, visible © OpenStreetMap contributors and © CARTO credit, and desktop/mobile screenshots. A separate public browser key was created with `esit98.github.io` as its sole website restriction. GitHub displayed "Secret updated" for `CARTO_BASEMAP_KEY`; the original local key remains in ignored local configuration. A new Actions run and live-site verification must still be recorded here. Until then the linked Pages site may still show the preceding basemap.

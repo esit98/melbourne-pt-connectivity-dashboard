@@ -10,7 +10,7 @@
 | Export reproducibility | Pass | `export_public_data.py --check` matched both public files byte-for-byte. |
 | Full browser control pass | Pass | `verify_full_browser.mjs`: eight sections; search/keyboard; route choice and reversal; 90-cell matrix, metric, toggle and CSV; map hover/click, layers, filters, empty state; centre selection; chart tabs/point clicks; compare table; licensing and disclaimer content; mobile layouts; no page errors. |
 | Public browser pass | Pass | `verify_public_browser.mjs`: 1440×900 and 390×844; direct `#compare` load and refresh; static source; no console errors, broken same-origin assets, page errors or GeoServer/backend requests. |
-| Live GitHub Pages | Not run | Release is held for the Plan Melbourne data-rights gate. |
+| Live GitHub Pages | Passed for preceding OSM release | The earlier release passed both browser scripts; the CARTO Light update requires a separate live run after its deployment. |
 
 Selected saved-value checks: 90 Outer-to-Outer and ten Outer-to-CBD routes, ten outer centres plus one CBD benchmark, 533 legs, 100 non-empty route geometries, mean Outer-to-Outer travel time 106.700011 minutes and mean benchmark travel time 68.855 minutes. The browser renders rounded values (106.7 and 68.9). Melton → Ringwood has seven saved legs; reverse Ringwood → Melton is a separate itinerary. A benchmark route has no reverse control.
 
@@ -24,3 +24,7 @@ node scripts/verify_full_browser.mjs
 ```
 
 These browser scripts need Playwright and a Chromium browser installed locally. Set `PLAYWRIGHT_PACKAGE` and `CHROME_PATH` if they are outside normal module/browser discovery. Set `PUBLIC_BASE_URL` or `WEB_MAP_URL` to test the deployed URL. Screenshots default to a temporary directory.
+
+## CARTO Light local production check, 14 October 2026
+
+A fresh `npm ci` reported zero vulnerabilities. All 15 frontend tests, the 100-geometry check and notices for 23 production packages passed. `npm run build:public` and `node scripts/check_publication.mjs` passed with the key from ignored local configuration. The public browser script passed all eight sections at 1440×900 and 390×844: 41 successful CARTO Light tile responses, zero failed CARTO tiles, zero OSM Standard tile requests, visible © OpenStreetMap contributors and © CARTO map credit, and no console/page errors, broken assets or backend calls. The full browser interaction suite also passed. The desktop and mobile map screenshots are retained in the local `Publication/carto-qa-screenshots/public/` directory outside this repository. The new live release remains to be checked separately.

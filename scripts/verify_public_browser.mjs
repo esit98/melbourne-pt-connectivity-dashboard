@@ -17,13 +17,25 @@ const browser = await playwright.chromium.launch({
 });
 const page = await browser.newPage({ viewport: { width: 1440, height: 900 }, acceptDownloads: true });
 const pageErrors = [], consoleErrors = [], brokenAssets = [], backendRequests = [];
-page.on('pageerror', error => pageErrors.push(error.message));
-page.on('console', message => { if (message.type() === 'error') consoleErrors.push(message.text()); });
+const cartoTiles = [], failedCartoTiles = [], osmStandardTiles = [];
+const safeMessage = value => value.replace(/([?&]key=)[^&#\s]+/gi, '$1[redacted]');
+page.on('pageerror', error => pageErrors.push(safeMessage(error.message)));
+page.on('console', message => { if (message.type() === 'error') consoleErrors.push(safeMessage(message.text())); });
 page.on('response', response => {
-  if (response.status() >= 400 && new URL(response.url()).origin === new URL(base).origin) brokenAssets.push([response.status(), response.url()]);
+  const url = new URL(response.url());
+  if (url.hostname === 'basemaps.cartocdn.com' && url.pathname.startsWith('/rastertiles/light_all/')) {
+    (response.ok() ? cartoTiles : failedCartoTiles).push([response.status(), url.pathname]);
+  }
+  if (response.status() >= 400 && url.origin === new URL(base).origin) brokenAssets.push([response.status(), response.url()]);
 });
 page.on('request', request => {
   if (/\/geoserver\/|127\.0\.0\.1:8085|localhost:8085/.test(request.url())) backendRequests.push(request.url());
+  const url = new URL(request.url());
+  if (url.hostname === 'tile.openstreetmap.org') osmStandardTiles.push(url.pathname);
+});
+page.on('requestfailed', request => {
+  const url = new URL(request.url());
+  if (url.hostname === 'basemaps.cartocdn.com') failedCartoTiles.push(['request failed', url.pathname]);
 });
 const nav = async key => {
   await page.locator(`#navigation [data-page="${key}"]`).click();
@@ -51,6 +63,12 @@ try {
   assert.equal(await page.locator('#metric-select').inputValue(), 'transfers');
   assert.ok(await page.locator('#map canvas').count() > 0);
   assert.equal(await page.locator('.map-selection').isVisible(), true);
+  await page.waitForFunction(() => Array.from(document.querySelectorAll('#map .ol-attribution a')).some(link => link.href.includes('carto.com/attribution')));
+  assert.match(await page.locator('#map .ol-attribution').innerText(), /OpenStreetMap[\s\S]*CARTO/);
+  await page.waitForTimeout(1200);
+  assert.ok(cartoTiles.length > 0, 'CARTO Light tiles must load');
+  assert.deepEqual(failedCartoTiles, []);
+  assert.deepEqual(osmStandardTiles, []);
   await page.screenshot({ path: join(shots, 'map-selected.png') });
   await page.locator('#clear-selection').click();
   await page.locator('[data-threshold="travel_time_min"]').fill('150');
@@ -85,11 +103,18 @@ try {
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), true, key);
   }
   await page.screenshot({ path: join(shots, 'mobile-methods.png') });
+  await page.locator('#menu-toggle').click();
+  await nav('map');
+  await page.waitForTimeout(1200);
+  assert.match(await page.locator('#map .ol-attribution').innerText(), /OpenStreetMap[\s\S]*CARTO/);
+  await page.screenshot({ path: join(shots, 'mobile-map.png'), fullPage: true });
   assert.deepEqual(pageErrors, []);
   assert.deepEqual(backendRequests, []);
   assert.deepEqual(brokenAssets, []);
   assert.deepEqual(consoleErrors, []);
-  console.log(JSON.stringify({ pages: 8, viewport: ['1440x900', '390x844'], screenshots: shots, pageErrors, consoleErrors, brokenAssets, backendRequests }));
+  assert.deepEqual(failedCartoTiles, []);
+  assert.deepEqual(osmStandardTiles, []);
+  console.log(JSON.stringify({ pages: 8, viewport: ['1440x900', '390x844'], screenshots: shots, cartoTileResponses: cartoTiles.length, failedCartoTiles, osmStandardTiles, pageErrors, consoleErrors, brokenAssets, backendRequests }));
 } finally {
   await browser.close();
 }
