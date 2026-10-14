@@ -6,6 +6,8 @@ The [separate public repository](https://github.com/esit98/melbourne-pt-connecti
 
 Release source commit `aa6a181aa3857b5cded093940de4f910dc0268b1` passed [Actions run 38545950279, attempt 2](https://github.com/esit98/melbourne-pt-connectivity-dashboard/actions/runs/38545950279). The first attempt ran before Pages was enabled and stopped at `configure-pages`; after enabling Pages with `build_type=workflow`, the rerun completed both build and deploy jobs at 09:57:29 UTC on 14 October 2026. The deployed site and static data hashes were verified afterward in [PUBLIC_WEBSITE_VERIFICATION.md](PUBLIC_WEBSITE_VERIFICATION.md).
 
+The CARTO Light source commit `7d9838db935b007f1d048b813cbc6740dca3f419` passed [Actions run 38551322211](https://github.com/esit98/melbourne-pt-connectivity-dashboard/actions/runs/38551322211) on 14 October 2026. The live site passed both browser suites with CARTO tiles from the domain-restricted public key. See [public website verification](PUBLIC_WEBSITE_VERIFICATION.md) for tile, interaction and data-integrity results.
+
 ## Release procedure
 
 1. Confirm the source-linked licence assessment and data notices still match the packaged files. Keep the original research repository private.

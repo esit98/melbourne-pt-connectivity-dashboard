@@ -4,7 +4,7 @@ Eight-section research and planning dashboard for ten selected outer Melbourne a
 
 **Live dashboard:** [esit98.github.io/melbourne-pt-connectivity-dashboard](https://esit98.github.io/melbourne-pt-connectivity-dashboard/). The [public verification record](docs/PUBLIC_WEBSITE_VERIFICATION.md) documents the deployed browser checks. The [publication readiness record](docs/PUBLICATION_READINESS.md), [licensing review](docs/LICENSING_REVIEW.md), [data licence register](docs/DATA_LICENCES.md) and [public attribution plan](docs/PUBLIC_ATTRIBUTION.md) describe the release basis and obligations.
 
-The CARTO Light update is verified in the local production release candidate. A separate browser key is restricted to `esit98.github.io` and stored as the repository Actions secret. The linked live site remains on the preceding release until the new Pages deployment is verified.
+The CARTO Light update is verified locally and on the live Pages site. A separate browser key is restricted to `esit98.github.io` and stored as the repository Actions secret; the older local key remains in ignored local configuration.
 
 ## Run and verify
 

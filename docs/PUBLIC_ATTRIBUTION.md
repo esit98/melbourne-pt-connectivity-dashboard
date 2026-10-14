@@ -1,6 +1,6 @@
 # Public attribution plan
 
-Reviewed 14 October 2026. The Methods & Data page has a **Data Sources & Licences** section and the academic disclaimer. The OpenLayers map shows non-collapsible basemap attribution. The text reflects the source-specific CC BY assessment and a conservative ODbL compliance package; live rendering still requires verification after deployment.
+Reviewed 14 October 2026. The Methods & Data page has a **Data Sources & Licences** section and the academic disclaimer. The OpenLayers map shows non-collapsible basemap attribution. The text reflects the source-specific CC BY assessment and a conservative ODbL compliance package; live CARTO rendering was verified after deployment.
 
 | Location | Wording and destination | Reason |
 |---|---|---|
@@ -13,4 +13,4 @@ Reviewed 14 October 2026. The Methods & Data page has a **Data Sources & Licence
 
 The site header and Methods & Data page describe a **fixed scheduled scenario for 13 October 2026 at 08:00 Australia/Melbourne**, based on saved OTP outputs. It is not a live journey planner and makes no claim to current traffic, disruptions or service availability.
 
-Before publication, inspect the built page and map at desktop and mobile widths, verify the linked notices and test actual tile requests. Record the live check in `PUBLIC_WEBSITE_VERIFICATION.md`.
+For each later release, inspect the built page and map at desktop and mobile widths, verify linked notices and actual tile requests, and record the live check in `PUBLIC_WEBSITE_VERIFICATION.md`.
