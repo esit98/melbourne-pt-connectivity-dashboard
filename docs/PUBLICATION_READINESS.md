@@ -1,0 +1,24 @@
+# Public publication readiness
+
+**Decision on 14 October 2026: LICENSING CLEARED ON DOCUMENTED TERMS; DEPLOYMENT CHECKS PENDING.** The proposed GitHub repository has not yet been created and the Pages URL has not yet been verified. The source-linked Plan Melbourne CC BY assessment and conservative ODbL compliance method are in [LICENSING_REVIEW.md](LICENSING_REVIEW.md). This is an evidence-based release decision, not a claim of formal legal certainty.
+
+| Gate | Status | Evidence or action |
+|---|---|---|
+| Frozen dataset integrity | Passed locally on 14 October 2026 | 90 outer-to-outer plus ten CBD routes, 533 legs, eleven centres, 100 valid modelled geometries. Export manifest and source hashes are recorded in `public/data/manifest.json`; `scripts/export_public_data.py --check` matched the saved research outputs. Rerun before release. |
+| Plan Melbourne points | Cleared on source-linked CC BY 4.0 assessment | Archived 133-feature file is byte-identical to the current official all-centres layer; the Plan Melbourne spatial-download page links DTP's CC BY 4.0 copyright terms and the 2017 source list identifies government Plan Melbourne as provider. The selected eleven points remain unchanged. See the documented scope and inference in `LICENSING_REVIEW.md`. |
+| OSM route geometry | Cleared with conservative ODbL safeguards | Treat the machine-readable collection as a Derivative Database for compliance. `public/data/route_geometries.geojson` offers all 100 saved geometries with ODbL notice; `public/data/README.md` provides component attribution and alteration method. OSMF has not formally classified this specific export. |
+| Transport Victoria GTFS | Verified dataset licence | Official GTFS Schedule page states CC BY 4.0. Preserve provider, source/licence links and transformation notice. |
+| OSM tiles | Prepared; verify live | OpenLayers uses the policy HTTPS endpoint and visible attribution. Confirm Referer, caching and acceptable tile request behavior on the actual Pages site. |
+| Software notices | Passed locally | All 63 lockfile package entries name a licence. OpenLayers' BSD-2-Clause notice and generated full notices for all 23 production dependencies are bundled under `public/licenses/`; `npm run verify:notices` passed after a fresh install. The original project's own software licence remains separate. |
+| Privacy and repository separation | Passed in preceding local audit | Separate candidate has no remote; original research repository remains private. Review exact public file allowlist again before push. |
+| Local checks | Passed | On 14 October 2026, a fresh `npm ci` completed (zero reported vulnerabilities), `npm test` passed 15/15, the saved-data and geometry exporters passed `--check`, all 23 production dependency notices passed verification, `npm run build:public` passed, and `node scripts/check_publication.mjs` passed. Both production browser scripts then passed at desktop and mobile sizes, including the new licence and disclaimer content, with no console errors, broken same-origin assets or local backend requests. |
+| CI build and live website | Pending | Create the public repository, run GitHub Actions and verify the actual Pages URL before reporting success. |
+
+## Release sequence
+
+1. Recheck saved source data without changing frozen indicators: `python scripts/export_public_data.py --research-root <private-research-project> --check`. Confirm manifest SHA-256 and 100/533/11/100 counts.
+2. Run `npm ci`, `npm test`, `npm run verify:geometry`, `npm run verify:notices`, `npm run build:public`, `node scripts/check_publication.mjs` and both production browser scripts. Audit the built asset list, source and package notices, and tile requests.
+3. Create only the separate `esit98/melbourne-pt-connectivity-dashboard` public repository; push the reviewed candidate. Keep `esit98/melbourne-cross-suburban-pt-connectivity` private.
+4. Run the Pages workflow, test all eight tabs and representative route, matrix, map, reverse, desktop/mobile and direct-link flows on the live URL, and record commit, workflow result and response in `PUBLIC_WEBSITE_VERIFICATION.md`.
+
+If any later source-specific notice contradicts the documented CC BY assessment or imposes obligations not met by the prepared package, stop the public push and seek clarification from DTP Planning Implementation. Do not silently substitute data or imply government endorsement.

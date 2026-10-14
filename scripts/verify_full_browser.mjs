@@ -91,7 +91,7 @@ try{
  assert.doesNotMatch(await page.locator('.comparison-rows').innerText(),/NaN|Infinity/);
  await page.getByText('View detailed table',{exact:true}).click();assert.equal(await page.locator('.data-table').isVisible(),true);
  await page.locator('#compare-origin').selectOption('');
- await nav('methodology');assert.equal(await page.locator('.methodology section').count(),10);assert.match(await page.locator('.methodology').innerText(),/fare analysis/);await shot('desktop_methodology');
+ await nav('methodology');assert.equal(await page.locator('.methodology section').count(),11);assert.match(await page.locator('.methodology').innerText(),/fare analysis/);assert.match(await page.locator('.methodology').innerText(),/Data Sources & Licences/);assert.match(await page.locator('.methodology').innerText(),/University of Melbourne/);await shot('desktop_methodology');
  await page.locator('#global-search').fill('Melton');assert.equal(await page.locator('.search-group h3').count(),2);await shot('desktop_search');
  await page.locator('#global-search').press('ArrowDown');assert.equal(await page.evaluate(()=>document.activeElement.dataset.centre),'AC02');await page.locator('#search-results [data-centre="AC02"]').press('Enter');assert.equal(await page.locator('#centre-select').inputValue(),'AC02');
  await page.setViewportSize({width:390,height:844});

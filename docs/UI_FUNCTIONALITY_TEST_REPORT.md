@@ -1,6 +1,6 @@
 # UI functionality test report
 
-**14 October 2026.** Target: the isolated public production build served from `/melbourne-pt-connectivity-dashboard/`, using the static saved snapshot. Browser plugin was unavailable; Playwright with local Chrome was used.
+**14 October 2026.** Target: the isolated public production build served from `/melbourne-pt-connectivity-dashboard/`, using the static saved snapshot. The standalone Browser plugin was unavailable; the two Playwright scripts ran in local Microsoft Edge after a fresh `npm ci`. Chrome browser interaction through Codex also confirmed visible map tiles, route geometry, data attribution and the academic disclaimer.
 
 | Check | Result | Evidence |
 |---|---|---|
@@ -8,7 +8,7 @@
 | Public candidate unit tests | Pass | 15/15, including 100-route/533-leg/manifest and saved mean checks. |
 | Public Vite build and artifact audit | Pass | 210 modules; hashed CSS/JS and static data under the correct base path; no backend URL, secret pattern or prohibited file in `dist/`. |
 | Export reproducibility | Pass | `export_public_data.py --check` matched both public files byte-for-byte. |
-| Full browser control pass | Pass | `verify_full_browser.mjs`: eight sections; search/keyboard; route choice and reversal; 90-cell matrix, metric, toggle and CSV; map hover/click, layers, filters, empty state; centre selection; chart tabs/point clicks; compare table; mobile layouts; no page errors. |
+| Full browser control pass | Pass | `verify_full_browser.mjs`: eight sections; search/keyboard; route choice and reversal; 90-cell matrix, metric, toggle and CSV; map hover/click, layers, filters, empty state; centre selection; chart tabs/point clicks; compare table; licensing and disclaimer content; mobile layouts; no page errors. |
 | Public browser pass | Pass | `verify_public_browser.mjs`: 1440×900 and 390×844; direct `#compare` load and refresh; static source; no console errors, broken same-origin assets, page errors or GeoServer/backend requests. |
 | Live GitHub Pages | Not run | Release is held for the Plan Melbourne data-rights gate. |
 
